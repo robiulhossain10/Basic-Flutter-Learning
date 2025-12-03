@@ -37,6 +37,51 @@ class _MyContactPageState extends State<MyContactPage> {
               },
               child: Text("Go Back"),
             ),
+            const SizedBox(height: 20),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 15,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      height: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.black, width: 1),
+                      ),
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Text('My Name is Khan'),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Colors.black, width: 1),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(15),
+                          child: Text('Hey My Frnd'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
