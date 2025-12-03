@@ -157,10 +157,13 @@ class demoPage extends StatelessWidget {
                 placeholder: 'assets/new.jpg',
                 image: 'https://www.w3schools.com/w3images/lights.jpg',
               ),
+              
             ],
           ),
+        
         ),
       ),
+      
     );
   }
 }

@@ -13,24 +13,41 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(title: Text('My Home Page'), centerTitle: true),
 
-      body: Container(
-        height: 120,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.green, width: 1),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center, // CENTER PROPERLY
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 15,
           children: [
-            ElevatedButton(onPressed: () {}, child: Icon(Icons.cabin)),
-            SizedBox(width: 20),
-            ElevatedButton(onPressed: () {}, child: Icon(Icons.cabin)),
-            SizedBox(width: 20),
-            ElevatedButton(onPressed: () {}, child: Icon(Icons.cabin)),
-            SizedBox(width: 20),
-            ElevatedButton(onPressed: () {}, child: Icon(Icons.cabin)),
+            Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/demo');
+                  },
+                  child: Text('Go to Demo Page'),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/form');
+                  },
+                  child: Text('Go to Form Page'),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/contact');
+                  },
+                  child: Text('Go to Contact Page'),
+                ),
+              ],
+            ),
           ],
         ),
       ),
