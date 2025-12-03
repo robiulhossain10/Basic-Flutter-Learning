@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 
 class DemoForm extends StatefulWidget {
   const DemoForm({super.key});
@@ -23,6 +24,97 @@ class _DemoFormState extends State<DemoForm> {
   DateTime? selectedDate;
 
   File? selectedImage;
+
+  Future<void> pickImage1() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        selectedImage = File(pickedFile.path);
+      });
+    }
+  }
+
+  Future<void> pickImage2(ImageSource sourceParam) async {
+    final picker = ImagePicker();
+    try {
+      final pickedFile = await picker.pickImage(source: sourceParam);
+      if (pickedFile != null) {
+        setState(() {
+          selectedImage = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      print('Error Picking Image: $e');
+    }
+  }
+
+  void openImageSourceDialog() {
+    showDialog(
+      context: context,
+      builder: (dialogCtx) {
+        return AlertDialog(
+          title: const Text('Select Image Source'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // ListTile(
+              //   leading: const Icon(Icons.image),
+              //   title: const Text('Gallery'),
+              //   onTap: () {
+              //     Navigator.of(dialogCtx, rootNavigator: true).pop();
+              //     pickImage2(ImageSource.gallery);
+              //   },
+              // ),
+              // ListTile(
+              //   leading: const Icon(Icons.camera),
+              //   title: const Text('Camera'),
+              //   onTap: () {
+              //     Navigator.of(dialogCtx, rootNavigator: true).pop();
+              //     pickImage2(ImageSource.camera);
+              //   },
+              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 10,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.of(dialogCtx, rootNavigator: true).pop();
+                          pickImage2(ImageSource.camera);
+                        },
+                        icon: Icon(
+                          Icons.camera_alt,
+                          size: 50,
+                          color: Colors.deepPurple,
+                        ),
+                      ),
+                      Text('CAMERA'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.of(dialogCtx, rootNavigator: true).pop();
+                          pickImage2(ImageSource.gallery);
+                        },
+                        icon: Icon(Icons.photo, size: 50, color: Colors.red),
+                      ),
+                      Text('GALLERY'),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   void _showToast() {
     Fluttertoast.showToast(
@@ -49,6 +141,62 @@ Message: ${multilineCtrl.text}
       body: ListView(
         padding: EdgeInsets.all(16.0),
         children: [
+          Text('Profile Image', style: TextStyle(fontWeight: FontWeight.bold)),
+          GestureDetector(
+            onTap: pickImage1,
+            child: CircleAvatar(
+              radius: 60,
+              backgroundColor: Colors.grey,
+              backgroundImage: selectedImage != null
+                  ? FileImage(selectedImage!)
+                  : null,
+              child: selectedImage == null
+                  ? Icon(Icons.camera_alt, size: 50, color: Colors.white)
+                  : null,
+            ),
+          ),
+          SizedBox(height: 30.00),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 10,
+            children: [
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      pickImage2(ImageSource.camera);
+                    },
+                    icon: Icon(Icons.camera_alt, size: 50, color: Colors.blue),
+                  ),
+                  Text('CAMERA'),
+                ],
+              ),
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      pickImage2(ImageSource.gallery);
+                    },
+                    icon: Icon(
+                      Icons.photo,
+                      size: 50,
+                      color: Colors.deepOrangeAccent,
+                    ),
+                  ),
+                  Text('GALLERY'),
+                ],
+              ),
+            ],
+          ),
+
+          ElevatedButton(
+            onPressed: () {
+              openImageSourceDialog();
+            },
+            child: Text('Pick Image'),
+          ),
+
+          SizedBox(height: 30.00),
           TextField(
             controller: nameCtrl,
             decoration: InputDecoration(
@@ -94,7 +242,7 @@ Message: ${multilineCtrl.text}
           SizedBox(height: 16.0),
 
           DropdownButtonFormField<String>(
-            value: _selectedGender,
+            initialValue: _selectedGender,
             decoration: InputDecoration(
               labelText: "Gender",
               border: OutlineInputBorder(),
