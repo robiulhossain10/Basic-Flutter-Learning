@@ -1,7 +1,7 @@
-import 'package:crud_flutter/contact.dart';
-import 'package:crud_flutter/form.dart';
-import 'package:crud_flutter/home.dart';
-import 'package:crud_flutter/practice1.dart';
+import 'package:basic_flutter_learning/contact.dart';
+import 'package:basic_flutter_learning/form.dart';
+import 'package:basic_flutter_learning/home.dart';
+import 'package:basic_flutter_learning/practice1.dart';
 import 'package:flutter/material.dart';
 
 void main() {
