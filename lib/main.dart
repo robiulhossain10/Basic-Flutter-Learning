@@ -1,6 +1,7 @@
 import 'package:basic_flutter_learning/contact.dart';
 import 'package:basic_flutter_learning/form.dart';
 import 'package:basic_flutter_learning/home.dart';
+import 'package:basic_flutter_learning/iosmain.dart';
 import 'package:basic_flutter_learning/practice1.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         '/demo': (context) => demoPage(),
         '/form': (context) => DemoForm(),
         '/contact': (context) => MyContactPage(),
+        '/ios': (context) => IOSMainPage(),
       },
     );
   }
