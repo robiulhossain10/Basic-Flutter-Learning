@@ -15,7 +15,23 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('My Home Page', style: TextStyle(color: Colors.white)),
         centerTitle: true,
+        iconTheme: const IconThemeData(
+          color: Colors.white, // Drawer icon color
+          size: 28, // optional: icon size
+        ),
         backgroundColor: Colors.deepOrange,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/form');
+            },
+            icon: Icon(Icons.network_wifi),
+          ),
+          IconButton(onPressed: () {
+            
+          }, icon: Icon(Icons.lan_rounded)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.android)),
+        ],
       ),
       drawer: SafeArea(
         child: Drawer(
@@ -111,11 +127,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('Go to Param Page'),
                 ),
                 const SizedBox(width: 20),
+              ],
+            ),
+            Row(
+              children: [
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/productcard');
                   },
                   child: const Text('Go to Card Page'),
+                ),
+                const SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/scanner');
+                  },
+                  child: const Text('Go to Scanner Page'),
                 ),
               ],
             ),

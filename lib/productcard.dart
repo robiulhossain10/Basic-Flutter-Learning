@@ -21,6 +21,24 @@ class _MyProductCardState extends State<MyProductCard> {
     'DRINKS',
   ];
 
+  // PRODUCT LIST
+  final List<ProductCardModel> products = [
+    ProductCardModel(
+      name: "Smart Watch",
+      img: "https://cdn.bdstall.com/product-image/giant_247997.jpg",
+      price: 1999.0,
+    ),
+    ProductCardModel(
+      name: "Headphone",
+      img: "https://cdn.bdstall.com/product-image/giant_247997.jpg",
+      price: 999.0,
+    ),
+    ProductCardModel(
+      name: "Shoes",
+      img: "https://cdn.bdstall.com/product-image/giant_247997.jpg",
+      price: 1499.0,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -72,21 +90,26 @@ class _MyProductCardState extends State<MyProductCard> {
                 },
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20),
 
-            Expanded(child: 
-            GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 0.7,
-              mainAxisSpacing: 12,
-              crossAxisSpacing: 12
+            // PRODUCT GRID
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.65,
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                ),
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  final p = products[index];
+                  return ProductCardUI(product: p);
+                },
               ),
-              itemCount: products.length,
-               itemBuilder: (context, index){
-                final 
-               }))
+            ),
           ],
-          
+
           //
         ),
       ),
@@ -94,13 +117,73 @@ class _MyProductCardState extends State<MyProductCard> {
   }
 }
 
+// PRODUCT CARD UI
+class ProductCardUI extends StatelessWidget {
+  final ProductCardModel product;
 
-class Productcard{
+  const ProductCardUI({super.key, required this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(1, 1)),
+        ],
+      ),
+      child: Column(
+        children: [
+          // IMAGE
+          Expanded(
+            flex: 7,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.network(
+                product.img,
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
+            ),
+          ),
+
+          SizedBox(height: 5),
+
+          // NAME
+          Text(
+            product.name,
+            style: TextStyle(fontWeight: FontWeight.bold),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+
+          // PRICE
+          Text(
+            "৳ ${product.price}",
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.green,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+
+          SizedBox(height: 5),
+        ],
+      ),
+    );
+  }
+}
+
+// PRODUCT MODEL
+class ProductCardModel {
   final String name;
   final String img;
-  final Double price;
+  final double price;
 
-  Productcard({required this.name, required this.img, required this.price});
-
-  
+  ProductCardModel({
+    required this.name,
+    required this.img,
+    required this.price,
+  });
 }
