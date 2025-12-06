@@ -1,3 +1,4 @@
+import 'package:basic_flutter_learning/practice1.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -16,32 +17,34 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         backgroundColor: Colors.deepOrange,
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const UserAccountsDrawerHeader(
-              accountEmail: const Text('dhgfds@hfkdfj'),
-              accountName: Text('dsdsdsd'),
-              currentAccountPicture: const CircleAvatar(
-                backgroundImage: AssetImage('assets/new.jpg'),
+      drawer: SafeArea(
+        child: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              const UserAccountsDrawerHeader(
+                accountEmail: Text('dhgfds@hfkdfj'),
+                accountName: Text('dsdsdsd'),
+                currentAccountPicture: CircleAvatar(
+                  backgroundImage: AssetImage('assets/new.jpg'),
+                ),
               ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text("Form"),
-              onTap: () {
-                Navigator.of(context).popAndPushNamed('/form');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text("Settings"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
+              ListTile(
+                leading: const Icon(Icons.home),
+                title: const Text("Form"),
+                onTap: () {
+                  Navigator.of(context).popAndPushNamed('/form');
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.settings),
+                title: const Text("Settings"),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
         ),
       ),
       body: Center(
@@ -88,9 +91,41 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MyParamRoute(
+                          title: 'Robiul Hossain',
+                          subTitle: 'Softwere Engineer',
+                          onTapMessage: handleMessage,
+                          count: 10,
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text('Go to Param Page'),
+                ),
+                const SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/productcard');
+                  },
+                  child: const Text('Go to Card Page'),
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
+  }
+
+  handleMessage(String p1) {
+    debugPrint('dhsdyugs $p1');
   }
 }

@@ -103,13 +103,10 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoPageScaffold(
-      child: Column(
-        children: [
+    return const CupertinoPageScaffold(child: Column(children: [
           
         ],
-      ),
-    );
+      ));
   }
 }
 
@@ -135,6 +132,30 @@ void showCupertinoActionSheet(BuildContext context) {
             Navigator.pop(context);
           },
           child: const Text("Option 2"),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text("Option 3"),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text("Option 4"),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text("Option 5"),
+        ),
+        CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text("Option 6"),
         ),
       ],
       cancelButton: CupertinoActionSheetAction(
