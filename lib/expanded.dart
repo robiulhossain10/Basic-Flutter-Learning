@@ -36,12 +36,14 @@ class MyExpand extends StatelessWidget {
                 // Box 2
                 Expanded(
                   child: Container(
-                    height: 50,
+                    height: 100,
                     color: Colors.green,
-                    child: Center(
-                      child: Text(
-                        'Grid-2',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Center(
+                        child: Text('Grid-2', style: TextStyle(fontSize: 25)),
                       ),
                     ),
                   ),
