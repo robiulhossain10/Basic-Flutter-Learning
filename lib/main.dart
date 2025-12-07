@@ -5,6 +5,7 @@ import 'package:basic_flutter_learning/iosmain.dart';
 import 'package:basic_flutter_learning/practice1.dart';
 import 'package:basic_flutter_learning/productcard.dart';
 import 'package:basic_flutter_learning/scanner.dart';
+import 'package:basic_flutter_learning/sqLite/model/ui/user_list.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/ios': (context) => IOSMainPage(),
         '/productcard': (context) => MyProductCard(),
         '/scanner': (context) => ScannerPage(),
+        '/userlist': (context) => UserList(),
       },
     );
   }
