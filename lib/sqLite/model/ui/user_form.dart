@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../db/db_helper.dart';
 import '../model/user.dart';
 
-
 class UserForm extends StatefulWidget {
   final User? user; // for editing
   const UserForm({super.key, this.user});
@@ -92,7 +91,14 @@ class _UserFormState extends State<UserForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.user == null ? 'Add User' : 'Edit User')),
+      appBar: AppBar(
+        title: Text(
+          widget.user == null ? 'Add User' : 'Edit User',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.green,
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -102,7 +108,8 @@ class _UserFormState extends State<UserForm> {
               TextFormField(
                 controller: nameCtrl,
                 decoration: const InputDecoration(labelText: 'Name'),
-                validator: (v) => v == null || v.isEmpty ? 'Name required' : null,
+                validator: (v) =>
+                    v == null || v.isEmpty ? 'Name required' : null,
               ),
               TextFormField(
                 controller: emailCtrl,

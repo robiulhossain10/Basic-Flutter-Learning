@@ -1,5 +1,5 @@
+import 'package:basic_flutter_learning/expanded.dart';
 import 'package:basic_flutter_learning/practice1.dart';
-import 'package:basic_flutter_learning/sqLite/model/ui/user_form.dart';
 import 'package:basic_flutter_learning/sqLite/model/ui/user_list.dart';
 import 'package:flutter/material.dart';
 
@@ -29,9 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             icon: Icon(Icons.network_wifi),
           ),
-          IconButton(onPressed: () {
-            
-          }, icon: Icon(Icons.lan_rounded)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.lan_rounded)),
           IconButton(onPressed: () {}, icon: Icon(Icons.android)),
         ],
       ),
@@ -146,25 +144,30 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: const Text('Go to Scanner Page'),
                 ),
-
               ],
             ),
             Row(
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => UserList()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => UserList()),
+                    );
                   },
                   child: const Text('Go to User Page'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => UserForm()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyExpand()),
+                    );
                   },
-                  child: const Text('Go to Form Page'),
+                  child: const Text('Go to Expand Page'),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

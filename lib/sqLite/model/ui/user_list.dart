@@ -1,9 +1,7 @@
 import 'package:basic_flutter_learning/sqLite/model/ui/user_form.dart';
 import 'package:flutter/material.dart';
-
 import '../db/db_helper.dart';
 import '../model/user.dart';
-
 
 class UserList extends StatefulWidget {
   const UserList({super.key});
@@ -29,7 +27,12 @@ class _UserListState extends State<UserList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Users')),
+      appBar: AppBar(
+        title: const Text('Users'),
+        backgroundColor: Colors.cyanAccent,
+        centerTitle: true,
+      ),
+
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () async {
@@ -37,60 +40,137 @@ class _UserListState extends State<UserList> {
             context,
             MaterialPageRoute(builder: (_) => const UserForm()),
           );
-          if (result == true) fetchUser(); // refresh list after add
+          if (result == true) fetchUser();
         },
       ),
-      body: ListView.builder(
-        itemCount: users.length,
-        itemBuilder: (context, index) {
-          final u = users[index];
-          return ListTile(
-            title: Text(u.name),
-            subtitle: Text('${u.email} * ${u.gender}'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.edit,color: Colors.blue,),
-                  onPressed: () async {
-                    final result = await Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => UserForm(user: u)),
-                    );
-                    if (result == true) fetchUser(); // refresh list after edit
-                  },
+
+      body: users.isEmpty
+          ? const Center(child: Text('No users found'))
+          : Padding(
+              padding: const EdgeInsets.all(10),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // 2 per row
+                  childAspectRatio: .99, // more height to avoid overflow
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
                 ),
-                IconButton(
-                  icon: const Icon(Icons.delete,color: Colors.red),
-                  onPressed: () async {
-                    final confirm = await showDialog<bool>(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        title: const Text('Confirm Delete'),
-                        content: Text('Delete ${u.name}?'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, false),
-                            child: const Text('Cancel'),
+                itemCount: users.length,
+                itemBuilder: (context, index) {
+                  final u = users[index];
+
+                  return Card(
+                    elevation: 5,
+                    shadowColor: Colors.grey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // NAME
+                          Text(
+                            u.name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
                           ),
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, true),
-                            child: const Text('Delete'),
+
+                          const SizedBox(height: 6),
+
+                          // EMAIL
+                          Text(
+                            u.email,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontSize: 13),
+                          ),
+
+                          // GENDER
+                          Text(
+                            u.gender,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontSize: 13),
+                          ),
+
+                          const Spacer(),
+
+                          // ACTION BUTTONS
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              // EDIT
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.blue,
+                                ),
+                                onPressed: () async {
+                                  final result = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => UserForm(user: u),
+                                    ),
+                                  );
+                                  if (result == true) fetchUser();
+                                },
+                                padding: EdgeInsets.zero,
+                                constraints: const BoxConstraints(),
+                              ),
+
+                              const SizedBox(width: 12),
+
+                              // DELETE
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () async {
+                                  final confirm = await showDialog<bool>(
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                      title: const Text('Confirm Delete'),
+                                      content: Text('Delete ${u.name}?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, false),
+                                          child: const Text('Cancel'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, true),
+                                          child: const Text('Delete'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+
+                                  if (confirm == true) {
+                                    await DatabaseHelper().deleteUser(u.id!);
+                                    fetchUser();
+                                  }
+                                },
+                                padding: EdgeInsets.zero,
+                                constraints: const BoxConstraints(),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    );
-                    if (confirm == true) {
-                      await DatabaseHelper().deleteUser(u.id!);
-                      fetchUser();
-                    }
-                  },
-                ),
-              ],
+                    ),
+                  );
+                },
+              ),
             ),
-          );
-        },
-      ),
     );
   }
 }
