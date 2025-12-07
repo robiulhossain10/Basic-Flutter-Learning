@@ -19,6 +19,7 @@ class MyExpand extends StatelessWidget {
               children: [
                 // Box 1
                 Expanded(
+                  flex: 2,
                   child: Container(
                     height: 500,
                     color: Colors.red,
@@ -35,6 +36,7 @@ class MyExpand extends StatelessWidget {
 
                 // Box 2
                 Expanded(
+                  flex: 1,
                   child: Container(
                     height: 100,
                     color: Colors.green,
@@ -53,6 +55,7 @@ class MyExpand extends StatelessWidget {
 
                 // Box 3
                 Expanded(
+                  flex: 1,
                   child: Container(
                     height: 50,
                     color: Colors.blue,
