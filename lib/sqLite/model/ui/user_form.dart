@@ -139,7 +139,7 @@ class _UserFormState extends State<UserForm> {
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
-                value: gender,
+                initialValue: gender,
                 decoration: const InputDecoration(labelText: 'Gender'),
                 items: ['Male', 'Female', 'Other']
                     .map((g) => DropdownMenuItem(value: g, child: Text(g)))
