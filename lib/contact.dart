@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MyContactPage extends StatefulWidget {
   const MyContactPage({super.key});
@@ -32,9 +33,7 @@ class _MyContactPageState extends State<MyContactPage> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: () => context.pop(),
               child: Text("Go Back"),
             ),
             const SizedBox(height: 20),
@@ -88,4 +87,3 @@ class _MyContactPageState extends State<MyContactPage> {
     );
   }
 }
-
