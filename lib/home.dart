@@ -179,6 +179,7 @@
 //   }
 // }
 
+import 'package:basic_flutter_learning/liquidSwipe.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:basic_flutter_learning/expanded.dart';
@@ -345,6 +346,25 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   },
                   child: const Text('Go to Expand Page'),
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () => context.push('/swipe'),
+                  child: const Text('Go to Swipe Page'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => MyGrids()),
+                    );
+                  },
+                  child: const Text('Go to Grids Page'),
                 ),
               ],
             ),
